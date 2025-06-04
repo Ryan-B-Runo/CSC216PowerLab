@@ -46,6 +46,7 @@ public class Driver {
         long startTime = 0;
         long endTime = 0;
 
+        System.out.println("Naive Power:");
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 startTime = System.nanoTime();
@@ -64,6 +65,52 @@ public class Driver {
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 System.out.print(naiveTable[i][j] + "     \t     ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("Unoptimized DC Power:");
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                startTime = System.nanoTime();
+                temp = unoptimizedDCPower(i, j);
+                endTime = System.nanoTime();
+                //unit tests to make sure the correct result is calculated
+                //also calculate time for performance analysis
+                if(temp == Math.pow(i, j)){
+                    unoptimizedDCTable[i][j] = endTime - startTime;
+                }else{
+                    System.out.println("Error with " + i + "^" + j + " = " + temp + " not " + Math.pow(i, j));
+                }
+            }
+        }
+
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                System.out.print(unoptimizedDCTable[i][j] + "\t\t");
+            }
+            System.out.println();
+        }
+
+        System.out.println("Optimized DC Power:");
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                startTime = System.nanoTime();
+                temp = optimizedDCPower(i, j);
+                endTime = System.nanoTime();
+                //unit tests to make sure the correct result is calculated
+                //also calculate time for performance analysis
+                if(temp == Math.pow(i, j)){
+                    optimizedDCTable[i][j] = endTime - startTime;
+                }else{
+                    System.out.println("Error with " + i + "^" + j + " = " + temp + " not " + Math.pow(i, j));
+                }
+            }
+        }
+
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                System.out.print(optimizedDCTable[i][j] + "\t\t");
             }
             System.out.println();
         }
