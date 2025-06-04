@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Driver {
 
     public static int naivePower(int x, int n) {
@@ -46,6 +50,8 @@ public class Driver {
         long startTime = 0;
         long endTime = 0;
 
+        StringBuilder csv = new StringBuilder();//will become a CSV
+
         System.out.println("Naive Power:");
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
@@ -65,9 +71,13 @@ public class Driver {
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 System.out.print(naiveTable[i][j] + "     \t     ");
+                csv.append(naiveTable[i][j]).append(",");
             }
             System.out.println();
+            csv.append("\n");
         }
+        csv.append(" , , , , , , , , , \n");
+        csv.append(" , , , , , , , , , \n");
 
         System.out.println("Unoptimized DC Power:");
         for(int i = 0; i < 10; i++){
@@ -88,9 +98,13 @@ public class Driver {
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 System.out.print(unoptimizedDCTable[i][j] + "\t\t");
+                csv.append(unoptimizedDCTable[i][j]).append(",");
             }
             System.out.println();
+            csv.append("\n");
         }
+        csv.append(" , , , , , , , , , \n");
+        csv.append(" , , , , , , , , , \n");
 
         System.out.println("Optimized DC Power:");
         for(int i = 0; i < 10; i++){
@@ -111,8 +125,23 @@ public class Driver {
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
                 System.out.print(optimizedDCTable[i][j] + "\t\t");
+                csv.append(optimizedDCTable[i][j]).append(",");
             }
             System.out.println();
+            csv.append("\n");
         }
+        csv.append(" , , , , , , , , , \n");
+        csv.append(" , , , , , , , , , \n");
+
+        try{
+            FileWriter fw = new FileWriter("C:\\dev\\CSC216\\Module2\\CSC216-Lab2-Power\\data.csv");
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(csv.toString());
+            bw.close();
+            System.out.println("Done");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
